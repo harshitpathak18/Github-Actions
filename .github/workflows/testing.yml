@@ -43,10 +43,17 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    # - name: Install pytest
-    #   run: |
-    #     python -m pip install pytest
-
     - name: Run Tests
       run: |
         pytest main_test.py
+
+    
+    - name: Run Tests and Capture Output
+      run: |
+        pytest main_test.py >> test_results.log  # Capture output in test_results.log
+
+    - name: Upload Test Results (optional)
+      uses: actions/upload-artifact@v3
+      with:
+        name: test_results
+        path: test_results.log
