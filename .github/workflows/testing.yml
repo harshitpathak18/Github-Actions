@@ -1,9 +1,9 @@
 name: Python CI
 
 on:
-push:
-branches:
-- main
+  push: 
+    branches:
+    - main
 
 jobs:
   setup:
@@ -16,17 +16,17 @@ jobs:
 
     steps:
     - name: Checkout code
-    uses: actions/checkout@v4
+      uses: actions/checkout@v4
+    
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
 
-    -name: Setup Python
-    uses: actions/setup-python@v5
-    with:
-      python-version: ${{ matrix.python-version }}
-
-    -name: Install Dependencies
-    run: |
-    python -m pip install --upgrade pip
-    pip install -r requirements.txt
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
 
   
 
@@ -47,5 +47,5 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
-    -name: Run Tests
-    run: pytest tests/
+    - name: Run Tests
+      run: pytest tests/
